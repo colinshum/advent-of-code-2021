@@ -1,27 +1,14 @@
-import sys 
-
-with open('inputs/day1.txt') as f:
-  lines = f.read().splitlines()
-    
-def day1_part1():
-  counter = 0
+class Day1:
+  def __init__(self):
+    with open('inputs/day1.txt') as f:
+      self.data = [int(i) for i in f.read().splitlines()]
+      
+  def part1(self):
+    return len(list(filter(lambda x: x[1] > x[0], zip(self.data, self.data[1:]))))
   
-  for i in range(len(lines) - 1):
-    counter += 1 if int(lines[i+1]) - int(lines[i]) > 0 else 0
-  
-  return counter
+  def part2(self):
+    return len(list(filter(lambda x: x[1] > x[0], zip(self.data, self.data[3:]))))
 
-print(day1_part1())
-
-def day1_part2():
-  prev, counter = sys.maxsize, 0
-  
-  # create a 3-item sliding window 
-  for i in range(len(lines) - 2):
-    window = sum([int(item) for item in lines[i:i+3]])
-    counter += 1 if window > prev else 0
-    prev = window
-  
-  return counter
-
-print(day1_part2())
+if __name__ == '__main__':
+  print(Day1().part1())
+  print(Day1().part2())
